@@ -3,10 +3,13 @@
 %% Set pwd to here
 projectwd = fileparts(mfilename('fullpath'));
 projectname = projectwd(regexp(projectwd, '[^\\]+$'):end);
-cd projectwd
+% cd projectwd
 
 %%  Add subdirectories
 addpath(genpath(projectwd));
+
+%% Read project datafile
+project = read_project_data;
 
 %% Add external paths and run other commands
 
@@ -23,10 +26,6 @@ addpath(genpath(projectwd));
 
 %% Create mockup project struct
 clear project
-project.name = projectname;
-project.created = datetime(clock);
-project.changed = datetime(clock);
-project.notice = 'Created by mtools';
 
 host = {'some-host' 'another-host'};
 add = {{'some-host/path1' 'some-host/path2'} {{'another-host/path1'}}};
