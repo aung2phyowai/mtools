@@ -9,17 +9,17 @@ show_welcome = 1;               % Show pwd, Matlab version and host name
 reopen_last  = 1;               % Re-opens files from last session
 tidy_up      = 1;               % Clear temporary variables
 
-%% Get project path, Matlab version and hostname
+%% Get project path and switch to working dir (just in case)
 full_path = fileparts(mfilename('fullpath'));
-matlab_version = version;
-[~, host_name] = system('hostname');
-
-%% Switch to working dir (just in case) and add subdirs to path
 cd(full_path);
+
+%% Add subdirs to path
 addpath(genpath(pwd));
 
-%% Get project directory name
+%% Get project directory name, Matlab version and hostname
 [upper_path, dir_name, ~] = fileparts(pwd);
+matlab_version = version;
+[~, host_name] = system('hostname');
 
 %% startup_data must be a condition for all
 %  each if statement must have && startup_data - otherwise things will crash...
