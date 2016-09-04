@@ -26,7 +26,7 @@ addpath(genpath(pwd));
 %% Show welcome
 
 if show_welcome
-  disp(['Project ''', dirname, ''' in ''', upperpath, '''']);
+  disp(['Project ''', dir_name, ''' in ''', upper_path, '''']);
   disp(['Running Matlab ', matlab_version, ' on host ', host_name]);
 end
 
