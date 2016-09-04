@@ -1,36 +1,19 @@
 %% finish.m concept
 %  http://www.mathworks.com/help/matlab/ref/finish.html
 
-% It should:
-% - remember files that where opened in the editor
-% - add them to the startup.mat
+%% Remember opened files
+% - when closing Matlab, make a list of opened scripts
+% - save it in the startup.mat (so it can be recovered by startup.m)
 
-% Alternatives
-x = matlab.desktop.editor.getAll
-x.Filename
-fileNames = {x.Filename};
+% This does the job
+opened = matlab.desktop.editor.getAll;
+last_opened = {opened.Filename};
+
+% this needs to be replaced so it puts the files to the startup.mat
+save('last_opened.mat', 'last_opened')
+
+%% More stuff on Matlab prefs
 
 % Info about Matlab preferences folder - should be relevant 
 % for other things as well http://stackoverflow.com/a/28588945/2416535
 % %APPDATA%\MathWorks\MATLAB\R2014b\MATLAB_Editor_State.xml
-
-%%
-ES = com.mathworks.mlservices.MLEditorServices;
-OpenFiles = ES.builtinGetOpenDocumentNames;
-C = cell(1, numel(OpenFiles));
-for i = 1:length(C)
-   C{i} = char(OpenFiles(i));
-end 
-
-%%
-% close your editor!!!!!
-     edit unique;
-     edit ismember;
-% DO NOT TOUCH ANY OF THE FILES!!!!!...
-     e=com.mathworks.mlservices.MLEditorServices;
-     d=char(e.builtinGetOpenDocumentNames);
-     disp(d);
-%{
-     MLROOT\toolbox\matlab\ops\unique.m 
-     MLROOT\toolbox\matlab\ops\ismember.m
-%}
