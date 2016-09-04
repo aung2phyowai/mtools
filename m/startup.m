@@ -7,6 +7,8 @@
 startup_data = 1;               % Load project-related data from startup.mat
 add_external = 1;               % Add paths as provided by startup.mat
 show_welcome = 1;               % Show pwd, Matlab version and host name
+reopen_last  = 1;               % Re-opens files from last session
+tidy_up      = 1;               % Clear temporary variables
 
 %% Get project path, Matlab version and hostname
 
@@ -22,6 +24,9 @@ addpath(genpath(pwd));
 %% Get project directory name
 
 [upper_path, dir_name, ~] = fileparts(pwd);
+
+%% startup_data must be a condition for all
+%  each if statement must als have && startup_data - otherwíise things will crash...
 
 %% Show welcome
 
@@ -53,3 +58,23 @@ end
 %% Add external paths
 
 % loop over subset of startup_mat.paths to get external paths to add
+
+%% Reopen tabs
+%  Empty or non-empty last_opened cell will be present in the startup.mat file
+%  For now, we load it from local .mat object
+load('last_opened.mat');
+
+if reopen_last
+  for file=last_opened
+    try
+      edit(file{1});
+    end
+  end
+end
+
+%% Tidy-up
+if tidy_up
+  clear startup_data add_external show_welcome reopen_last tidy_up
+  clear upper_path matlab_version host_name dir_name full_path
+  clear last_opened
+end
