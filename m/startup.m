@@ -2,8 +2,7 @@
 %  The code in this file will run if you launch Matlab by clicking an arbitrary 
 %  *.m script within a folder where this startup file is placed.
 
-%% Initialize variables
-
+%% Preferences
 startup_data = 1;               % Load project-related data from startup.mat
 add_external = 1;               % Add paths as provided by startup.mat
 show_welcome = 1;               % Show pwd, Matlab version and host name
@@ -11,32 +10,27 @@ reopen_last  = 1;               % Re-opens files from last session
 tidy_up      = 1;               % Clear temporary variables
 
 %% Get project path, Matlab version and hostname
-
 full_path = fileparts(mfilename('fullpath'));
 matlab_version = version;
 [~, host_name] = system('hostname');
 
 %% Switch to working dir (just in case) and add subdirs to path
-
 cd(full_path);
 addpath(genpath(pwd));
 
 %% Get project directory name
-
 [upper_path, dir_name, ~] = fileparts(pwd);
 
 %% startup_data must be a condition for all
-%  each if statement must als have && startup_data - otherwíise things will crash...
+%  each if statement must have && startup_data - otherwise things will crash...
 
 %% Show welcome
-
 if show_welcome
   disp(['Project ''', dir_name, ''' in ''', upper_path, '''']);
   disp(['Running Matlab ', matlab_version, ' on host ', host_name]);
 end
 
 %% Load project data (if any)
-
 % if startup_data
 %   try
 %     startup_mat = load('startup.mat');
@@ -56,14 +50,12 @@ end
 % end
 
 %% Add external paths
-
 % loop over subset of startup_mat.paths to get external paths to add
 
 %% Reopen tabs
 %  Empty or non-empty last_opened cell will be present in the startup.mat file
 %  For now, we load it from local .mat object
 load('last_opened.mat');
-
 if reopen_last
   for file=last_opened
     try
