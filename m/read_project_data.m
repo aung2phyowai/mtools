@@ -15,19 +15,3 @@ catch
 end
 
 end
-
-function [project] = create_project_data()
-
-[~, name, ~] = fileparts(pwd);
-paths = cell2table(cell(0,3), 'VariableNames', {'name', 'host', 'path'});
-
-project = struct;
-project.name = name;
-project.created = datetime(clock);
-project.opened = datetime(clock);
-project.notice = 'Created by mtools';
-project.paths = paths;
-
-save('project.mat', 'project')
-
-end
