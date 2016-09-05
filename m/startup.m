@@ -6,7 +6,7 @@
 startup_data = 1;               % Load project-related data from startup.mat
 add_external = 1;               % Add paths as provided by startup.mat
 show_welcome = 1;               % Show pwd, Matlab version and host name
-reopen_last  = 1;               % Re-opens files from last session
+restore_last = 1;               % Re-opens files from last session
 tidy_up      = 1;               % Clear temporary variables
 
 %% Get project path and switch to working dir (just in case)
@@ -56,7 +56,7 @@ end
 %  Empty or non-empty last_opened cell will be present in the startup.mat file
 %  For now, we load it from local .mat object
 load('last_opened.mat');
-if reopen_last
+if restore_last
   for file=last_opened
     try
       edit(file{1});
