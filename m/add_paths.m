@@ -1,18 +1,27 @@
 %% Adds paths relevant to the current host
 
-function [path] = add_paths()
+function [paths] = add_paths(paths)
 
-project = read_project_data;
-[~, currenthost] = system('hostname');
+% Subset: only those paths that belong to current host
+[~, current_host] = system('hostname');
+current_host = strcmp(paths.host, strcat(current_host));
+current_paths = paths(current_host, :);
 
-currenth = strcmp(project.paths.host, strcat(currenthost));
-paths = project.paths(currenth, :);
+% If a path is successfully added, make it also available in the Workspace
+paths = struct;
 
-path = struct;
+for i=1:height(current_paths)
+  
+  try
+    addpath(current_paths{i, 'path'}{1});
+    [paths.(current_paths{i, 'name'}{1})] = [current_paths{i, 'path'}{1} '/'];
+    disp(['Adding: ' current_paths{i, 'path'}{1}]);
+  
+  catch e
+    disp(e);
+  
+  end    
 
-for i=1:height(paths)
-    [path.(paths{i, 'name'}{1})] = [paths{i, 'path'}{1} '/'];
-    addpath(paths{i, 'path'}{1});
 end
 
 end

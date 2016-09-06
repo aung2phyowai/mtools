@@ -23,7 +23,7 @@ expected_fields = {'name'; 'created'; 'opened'; 'paths'; 'editor'};
 try
     loaded_fields = fieldnames(project);
 catch
-    disp('The file ''startup.mat'' is not a valid project structure');
+    disp('The file ''startup.mat'' does not contain valid project structure');
     status = 2;
     return
 end

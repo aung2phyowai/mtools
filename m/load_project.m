@@ -15,7 +15,7 @@ function [project] = load_project()
     load('startup.mat');
   
   elseif status == 2
-    disp('Invalid ''startup.mat''; correct it or create new one by calling ''initiate_project()''');
+    project = {};
   
   end
 
