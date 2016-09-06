@@ -1,7 +1,7 @@
 %% Does project data-file created by mtools exist?
 %  status
-%  0    does not exist, needs to be created
-%  1    exists, can be loaded
+%  0    exists, can be loaded
+%  1    does not exist, needs to be created
 %  2    exists but invalid, will not be created
 
 function [status] = exist_project()
@@ -11,7 +11,7 @@ try
     load('startup.mat');
 catch
     disp('Cannot find ''startup.mat''')
-    status = 0;
+    status = 1;
     return
 end
 
@@ -34,7 +34,7 @@ equal_names  = all(strcmp(loaded_fields, expected_fields));
 
 if  equal_length && equal_names
     disp('Found valid ''startup.mat''');
-    status = 1;
+    status = 0;
 else
     msg = ['Found startup.mat but with incompatible fields\n\n' ...
         'Should have:\n' strjoin(expected_fields, ', ') ...

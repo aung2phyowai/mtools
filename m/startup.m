@@ -3,65 +3,68 @@
 %  *.m script within a folder where this startup file is placed.
 
 %% Preferences
-startup_data = 1;               % Load project-related data from startup.mat
-add_external = 1;               % Add paths as provided by startup.mat
-show_welcome = 1;               % Show pwd, Matlab version and host name
-restore_last = 1;               % Re-opens files from last session
-tidy_up      = 1;               % Clear temporary variables
+startup_data = 1;             % Load project-related data from startup.mat
+add_external = 1;             % Add paths as provided by startup.mat
+show_welcome = 1;             % Show wd, Matlab version and host name
+restore_last = 1;             % Re-open files from last session
+tidy_up      = 1;             % Clear temporary variables created by this script
 
 %% Get project path and switch to working dir (just in case)
 full_path = fileparts(mfilename('fullpath'));
 cd(full_path);
 
-%% Add subdirs to path
+% Add subdirs to path
 addpath(genpath(pwd));
 
-%% Get project directory name, Matlab version and hostname
+% Get project directory name, Matlab version and hostname
 [upper_path, dir_name, ~] = fileparts(pwd);
 matlab_version = version;
 [~, host_name] = system('hostname');
 
-%% startup_data must be a condition for all
-%  each if statement must have && startup_data - otherwise things will crash...
-
-%% Show welcome
+% Show welcome
 if show_welcome
   disp(['Project ''', dir_name, ''' in ''', upper_path, '''']);
   disp(['Running Matlab ', matlab_version, ' on host ', host_name]);
 end
 
+%% startup_data must be a condition for all
+%  each if statement must have && startup_data - otherwise things will crash...
+
 %% Load project data (if any)
-% if startup_data
-%   try
-%     startup_mat = load('startup.mat');
-%     try
-%       strcmp(startup_mat.notice, 'Created by mtools');
-%     catch
-%       msg = ['''startup.mat'' is a speacial project structure; ' ...
-%         'if you want to use it, please remove/rename other files named ' ...
-%         '''startup.mat'' from your project folder'];
-%       disp(msg);
-%     end
-%   catch
-%     disp('Creating new ''startup.mat'' file to store project-related info');
-%     create_startup_mat
-%     startup_mat = load('startup.mat');
-%   end
-% end
+if startup_data
+    
+    status = exist_project();
+    % 0 = exists; 1 = missing and will be created; 2 = exists but invalid
+    
+    if status == 0
+        load('startup.mat');
+    elseif status == 1
+        initiate_project();
+        load('startup.mat');
+    elseif status == 2
+        disp('Invalid ''startup.mat''; correct it or create new one by calling ''initiate_project()''');
+        startup_data = 0; %to prevent error messages down the line
+    end
+    
+end
 
 %% Add external paths
 % loop over subset of startup_mat.paths to get external paths to add
 
-%% Reopen tabs
-%  Empty or non-empty last_opened cell will be present in the startup.mat file
-%  For now, we load it from local .mat object
-load('last_opened.mat');
-if restore_last
-  for file=last_opened
-    try
-      edit(file{1});
+%% Reopen *.m files from last session
+if startup_data && restore_last
+    editor = project.editor;
+    for file=editor
+        if ~isempty(file)
+            try
+                edit(file{1});
+            catch e
+                disp(e)
+            end
+        else
+            disp('No files to open from previous session');
+        end
     end
-  end
 end
 
 %% Tidy-up
