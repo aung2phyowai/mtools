@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=matlab
+NoDsiplay=true
+#Exec=matlab -desktop -r "edit %f"
+Exec=matlab -desktop -r "cd %d"
+Name[en]=Matlab
+#Icon=path/to/matlab/icon.png
+Categories=Development;
