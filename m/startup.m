@@ -1,5 +1,5 @@
 %% Startup file concept
-%  The code in this file will run if you launch Matlab by clicking an arbitrary 
+%  The code in this file will run if you launch Matlab by clicking an arbitrary
 %  *.m script within a folder where this startup file is placed.
 
 %% Preferences
@@ -16,15 +16,16 @@ cd(full_path);
 % Add subdirs to path
 addpath(genpath(pwd));
 
-% Get project directory name, Matlab version and hostname
-[upper_path, dir_name, ~] = fileparts(pwd);
-matlab_version = version;
-[~, host_name] = system('hostname');
-
 % Show welcome
 if show_welcome
+  
+  [upper_path, dir_name, ~] = fileparts(pwd);
+  matlab_version = version;
+  [~, host_name] = system('hostname');
+  
   disp(['Project ''', dir_name, ''' in ''', upper_path, '''']);
   disp(['Running Matlab ', matlab_version, ' on host ', host_name]);
+
 end
 
 %% startup_data must be a condition for all
@@ -32,20 +33,20 @@ end
 
 %% Load project data (if any)
 if startup_data
-    
-    status = exist_project();
-    % 0 = exists; 1 = missing and will be created; 2 = exists but invalid
-    
-    if status == 0
-        load('startup.mat');
-    elseif status == 1
-        initiate_project();
-        load('startup.mat');
-    elseif status == 2
-        disp('Invalid ''startup.mat''; correct it or create new one by calling ''initiate_project()''');
-        startup_data = 0; %to prevent error messages down the line
-    end
-    
+  
+  status = exist_project();
+  % 0 = exists; 1 = missing and will be created; 2 = exists but invalid
+  
+  if status == 0
+    load('startup.mat');
+  elseif status == 1
+    initiate_project();
+    load('startup.mat');
+  elseif status == 2
+    disp('Invalid ''startup.mat''; correct it or create new one by calling ''initiate_project()''');
+    startup_data = 0; %to prevent error messages down the line
+  end
+  
 end
 
 %% Add external paths
@@ -53,18 +54,18 @@ end
 
 %% Reopen *.m files from last session
 if startup_data && restore_last
-    editor = project.editor;
-    for file=editor
-        if ~isempty(file)
-            try
-                edit(file{1});
-            catch e
-                disp(e)
-            end
-        else
-            disp('No files to open from previous session');
-        end
+  editor = project.editor;
+  for file=editor
+    if ~isempty(file)
+      try
+        edit(file{1});
+      catch e
+        disp(e)
+      end
+    else
+      disp('No files to open from previous session');
     end
+  end
 end
 
 %% Tidy-up
