@@ -45,7 +45,7 @@ if restore_last && ~isempty(project)
 end
 
 if tidy_up
-  clear startup_data add_external show_welcome restore_last tidy_up
+  clear startup_data add_external add_local show_welcome restore_last tidy_up
   clear full_path
   clear added project
 end
