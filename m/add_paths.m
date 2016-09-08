@@ -9,15 +9,17 @@ current_paths = paths(current_host, :);
 
 % If a path is successfully added, make it also available in the Workspace
 paths = struct;
+fprintf('\n');
 
 for i=1:height(current_paths)
   
   try
     addpath(current_paths{i, 'path'}{1});
     [paths.(current_paths{i, 'name'}{1})] = [current_paths{i, 'path'}{1} '/'];
-    disp(['Adding: ' current_paths{i, 'path'}{1}]);
+    disp(['Adding ''' current_paths{i, 'name'}{1} ''': ' current_paths{i, 'path'}{1}]);
   
   catch e
+    fprintf('\n');
     disp(e);
   
   end    

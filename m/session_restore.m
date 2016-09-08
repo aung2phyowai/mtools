@@ -3,6 +3,7 @@
 function [] = session_restore(editor)
 
 if isempty(editor)
+  fprintf('\n');
   disp('No files to open from previous session');
   return
 end

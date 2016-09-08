@@ -1,6 +1,6 @@
-%% Startup file concept
-%  The code in this file will run if you launch Matlab by clicking an arbitrary
-%  *.m script within a folder where this startup file is placed.
+%% Matlab startup file
+%  1. Run Matlab by clicking an arbitrary *.m file
+%  2. If this startup file is located in that folder, it will be run
 
 %% Preferences
 startup_data = 1;             % Load project-related data from startup.mat
@@ -28,19 +28,14 @@ if startup_data
 end
 
 if add_external && ~isempty(project)
-  fprintf('\n');
   paths = add_paths(project.paths);
 end
 
 if add_local
-  fprintf('\n');
-  addpath(genpath(pwd));
-  added = strcat({'Adding: '}, pwd, '/', cellpath(), '\n');
-  fprintf([added{:}]);
+  add_subpaths()
 end
 
 if restore_last && ~isempty(project)
-  fprintf('\n');
   session_restore(project.editor)
 end
 
