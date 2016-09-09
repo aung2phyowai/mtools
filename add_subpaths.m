@@ -5,7 +5,7 @@ function [] = add_subpaths()
 addpath(genpath(pwd));
 
 fprintf('\n');
-added = strcat({'Adding: '}, pwd, '/', cellpath(), '\n');
-fprintf([added{:}]);
+added = strcat({'Adding: '}, pwd, '/', cellpath());
+disp([added{:}]);
 
 end
