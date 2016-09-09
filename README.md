@@ -1,4 +1,5 @@
-# mtools
+mtools
+------
 mtools: slightly cosier working with Matlab
 
 `mtools` creates and manages folders for your Matlab projects.
@@ -9,6 +10,7 @@ mtools: slightly cosier working with Matlab
 - it remembers which files you were working on last time in a given project folder, and opens them again when you run Matlab in that folder (but not elsewhere)
 
 To use it:
+----------
 
 - add `mtools` to PATH (preferably permanently using the ui dialog)
 - create new projects by calling `create('name_of_your_project')`
