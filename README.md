@@ -1,6 +1,5 @@
 mtools
 ------
-mtools: slightly cosier working with Matlab
 
 Matlab does not make it very comfortable to manage project in dedicated folders. With `mtools`, if you launch Matlab in a given project folder, it will:
 
