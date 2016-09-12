@@ -1,7 +1,7 @@
 mtools
 ------
 
-Matlab does not make it very comfortable to manage project in dedicated folders. With `mtools`, if you launch Matlab in a given project folder, it will:
+Managing data-analysis projects in dedicated folders is a bit of a pain. `mtools` make it slightly cosier. If you launch Matlab in a given project folder, it will:
 
 - reopen the files you were working on last time *in that folder* (and not elsewhere, as is the default)
 - add paths added previously when working *in that folder* and make them available in your Workspace as variables
